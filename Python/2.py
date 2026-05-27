@@ -1,20 +1,35 @@
-# 1. Kullanıcıdan ilk sayıyı istiyoruz ve bilgisayarın aklında tutması için 'sayi1' isimli bir kutuya koyuyoruz.
-# 'int' ifadesi, bilgisayara bunun bir "tam sayı" olduğunu söylüyor.
-sayi1 = int(input("İlk sayıyı giriniz: "))
+import random
 
-# 2. Kullanıcıdan ikinci sayıyı istiyoruz ve onu da 'sayi2' kutusuna koyuyoruz.
-sayi2 = int(input("İkinci sayıyı giriniz: "))
+def sayi_tahmin_oyunu():
+    # 1 ile 100 arasında rastgele bir tam sayı seçiyoruz
+    gizli_sayi = random.randint(1, 100)
+    tahmin_sayisi = 0
+    
+    print("=== Sayı Tahmin Oyununa Hoş Geldiniz! ===")
+    print("1 ile 100 arasında bir sayı tuttum. Bakalım kaç kerede bulacaksınız?")
+    print("--------------------------------------------------")
 
-# 3. Bilgisayara işlemlerimizi yaptırıp sonuçları yeni kutulara kaydediyoruz.
-toplam = sayi1 + sayi2
-fark = sayi1 - sayi2
-carpim = sayi1 * sayi2
-bolum = sayi1 / sayi2
+    # Oyuncu doğru tahmin edene kadar dönecek sonsuz döngü
+    while True:
+        try:
+            # Kullanıcıdan tahmin alıyoruz
+            tahmin = int(input("Tahmininiz nedir?: "))
+            tahmin_sayisi += 1  # Yapılan her tahminde sayacı 1 artırıyoruz
 
-# 4. Sonuçları ekrana yazdırıp kullanıcıya gösteriyoruz.
-print("--------------------------")
-print("Toplama Sonucu:", toplam)
-print("Çıkarma Sonucu:", fark)
-print("Çarpma Sonucu :", carpim)
-print("Bölme Sonucu  :", bolum)
-print("--------------------------")
+            # Tahmin kontrolü (Koşul Blokları)
+            if tahmin < gizli_sayi:
+                print("Daha büyük bir sayı girin! ⬆️")
+            elif tahmin > gizli_sayi:
+                print("Daha küçük bir sayı girin! ⬇️")
+            else:
+                # Doğru tahmin durumunda tebrik mesajı ve döngüden çıkış
+                print(f"\n🎉 Tebrikler! Doğru tahmin! Sayı: {gizli_sayi}")
+                print(f"🕵️‍♂️ Toplam {tahmin_sayisi} hamlede sonuca ulaştınız.")
+                break 
+                
+        except ValueError:
+            # Kullanıcı sayı yerine harf veya geçersiz bir karakter girerse programın çökmesini önler
+            print("Lütfen sadece tam sayı giriniz!")
+
+# Fonksiyonu çağırarak oyunu başlatıyoruz
+sayi_tahmin_oyunu()
